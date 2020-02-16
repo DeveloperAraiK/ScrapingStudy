@@ -24,11 +24,23 @@ res = session.post(urlLogin, params=login_info)   # data= だとダメだった�
 res.raise_for_status()
 
 soup = BeautifulSoup(res.text,"html.parser")
-loginText = soup.select(".islogin a")   # isloginというclass属性を抽出。class属性とは要素にクラス名を指定する
-                                        # クラス名はCSSの目印であるセレクタとして使われる
-                                        # selectメソッド：セレクタを引数。二つ書いたら＆っぽい
-print(loginText)
+loginText = soup.select(".islogin a") 
+    # isloginというclass属性を抽出。class属性とは要素にクラス名を指定する
+    # クラス名はCSSの目印であるセレクタとして使われる
+    # selectメソッド：セレクタ指定→ドットを書く。タグもかける？＆になるっぽい
+# print(loginText)
 if loginText == []:
     print("login Failure")
     quit()
 
+# 参考１）
+# for i in soup.find_all("a"):  # aタグがリストで取得されるのでforで取り出す
+#     print(i.get("href"))
+
+# 参考２）
+# z = soup.select("#header_menu_linkbar")   # selectメソッド：ID指定→#つける
+
+# マイページリンクの取得 href属性のユーザーパラメーターとの組み合わせでリンクURL担っている
+user = loginText[0].get("href")     # loginTextは要素数１個のリストなので、１要素目に対してget
+myPageLink = BASE_URL + user
+print(myPageLink)
