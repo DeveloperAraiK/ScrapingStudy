@@ -44,3 +44,8 @@ if loginText == []:
 user = loginText[0].get("href")     # loginTextは要素数１個のリストなので、１要素目に対してget
 myPageLink = BASE_URL + user
 print(myPageLink)
+
+res = session.get(myPageLink)       # マイページのHTML取得
+res.raise_for_status()
+mySoup = BeautifulSoup(res.text,"html.parser")
+print(mySoup.get_text())
