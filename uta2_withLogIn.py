@@ -8,12 +8,12 @@ PASS = "testKen"
 # セッション開始
 session = requests.session()
 
-# input ~~~  name の部分。postでログイン情報をサーバーに送っている部分
+# <form action … のelement全体の中から、nameの部分を抽出。postでログイン情報をサーバーに送っている部分
 login_info = {
-    "username_mmlbbs6":USER,
+    "username_mmlbbs6":USER,    # value は空っぽ
     "password_mmlbbs6":PASS,
-    "back":"index.php",
-    "mml_id":"0"
+    "back":"index.php",         # value が index.php
+    "mml_id":"0"                # value が 0
 }
 
 # アクション htmlの「form action ・・・」の部分かな
