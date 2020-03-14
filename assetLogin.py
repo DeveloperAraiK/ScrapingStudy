@@ -40,12 +40,16 @@ token = soup.find_all("input",{"name":"authenticity_token"})
  # パスワードでログインのtokenは1個目
 loginInfo["authenticity_token"] = token[0].get("value")
 
-# ログイン後トップページのHTMLを取得
-resTop = session.post(
+# ログイン
+ses = session.post(
     BASE_URL+"/session",
     params=loginInfo)
-resTop.raise_for_status()
+ses.raise_for_status()
 
-soupTop = BeautifulSoup(resTop.text,"html.parser")
-# print(soupTop.find_all("a"))
-print(soupTop.get_text)
+# ↓↓セッション保持できているので、ここからは普通に get できる
+
+# 資産ページ HTML取得
+resShisan = session.get(BASE_URL + "bs/portfolio")
+resShisan.raise_for_status()
+soupShisan = BeautifulSoup(resShisan.text,"html.parser")
+print(soupShisan.get_text)
