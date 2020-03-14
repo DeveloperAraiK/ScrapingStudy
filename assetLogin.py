@@ -1,14 +1,22 @@
 import requests
 from bs4 import BeautifulSoup
 import getpass
+import myLib
 
 BASE_URL = "https://moneyforward.com/"
 
 # セッション開始
 session = requests.session()
 
-loginUser = input("ID:")
-loginPass = getpass.getpass("PASS:")  # 入力Passはprint文出さない
+# ID/Pass取得
+idpass = myLib.get_id_pass()
+if idpass[0] != "":
+    loginUser = idpass[0]
+    loginPass = idpass[1]
+else:
+    # ファイルにID/Passが設定されていなかったらコンソール入力
+    loginUser = input("ID:")
+    loginPass = getpass.getpass("PASS:")  # 入力Passはprint文出さない
 
 # ログイン情報
 loginInfo = {
@@ -39,4 +47,5 @@ resTop = session.post(
 resTop.raise_for_status()
 
 soupTop = BeautifulSoup(resTop.text,"html.parser")
-print(soupTop.find_all("a"))
+# print(soupTop.find_all("a"))
+print(soupTop.get_text)
