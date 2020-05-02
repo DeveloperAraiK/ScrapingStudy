@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import getpass
 import myLib
+import sys
 
 BASE_URL = "https://moneyforward.com/"
 
@@ -28,8 +29,24 @@ loginInfo = {
     "commit":"ログイン"
 }
 
-resp = session.get(BASE_URL+"/users/sign_in")
+# userAgent ブラウザとして HTTP Getする
+ua = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) "\
+                 "AppleWebKit/537.36 (KHTML, like Gecko) "\
+                 "Chrome/81.0.4044.129 Safari/537.36 "
+resp = session.get(BASE_URL+"/users/sign_in", headers={"User-Agent": ua})
+
+# リダイレクトを確認(あんまり意味はない。勉強のため)
+# -O オプションで実行すると実行するif文
+if not __debug__:
+    print("loginPage Get")
+    print("    - status_code:{0}".format(resp.status_code)) # 200=成功(リダイレクトは3XXだが最終的な結果?)
+    print("    - Redirect url:{0}".format(resp.url)) # ブラウザで確認できるURLのと同じのが入っている
+    print("    - history len:{0}".format(len(resp.history))) # 4回リダイレクトされているっぽい
+
 soup = BeautifulSoup(resp.content,"html.parser")
+
+sys.exit()
+# これ以降はサイトのログイン方式変更前のコード
 
 # token取得
 # for key,value in loginInfo.items():
@@ -51,5 +68,17 @@ ses.raise_for_status()
 # 資産ページ HTML取得
 resShisan = session.get(BASE_URL + "bs/portfolio")
 resShisan.raise_for_status()
-soupShisan = BeautifulSoup(resShisan.text,"html.parser")
-print(soupShisan.get_text)
+ses = BeautifulSoup(resShisan.text,"html.parser")
+
+total = ses.find_all(class_="bs-total-assets")
+print(total[0].find_all(class_="table table-bordered"))
+# kabushiki = ses.find_all(class_="table table-bordered table-eq")
+
+# print(kabushiki[0])
+
+# trs = kabushiki.find_all("tr")
+# print(trs)
+
+# for i in kabushiki:
+#     print(i.find_all("tr"))
+# print(kabushiki[0].find_all("tr"))
