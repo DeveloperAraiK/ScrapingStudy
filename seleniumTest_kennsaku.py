@@ -1,3 +1,7 @@
+#############################
+# seleniumを使って、chromeのgoogole検索でマネーフォワードを検索する
+# note:
+#############################
 from selenium import webdriver
 import chromedriver_binary 
 import time
@@ -16,4 +20,3 @@ search.send_keys("マネーフォワード")
 time.sleep(3) # sec
 button = browser.find_element_by_class_name("gNO89b")
 button.click()
-

@@ -1,3 +1,7 @@
+#############################
+# RequestsとBeautifulSoupの基本の使い方
+# note:
+#############################
 import requests
 from bs4 import BeautifulSoup
 
