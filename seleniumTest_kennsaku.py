@@ -16,3 +16,4 @@ search.send_keys("マネーフォワード")
 time.sleep(3) # sec
 button = browser.find_element_by_class_name("gNO89b")
 button.click()
+
