@@ -1,3 +1,8 @@
+#############################
+# requestsを使ってマネーフォワードにログインする
+# note:
+# ログイン方法が変わって、ログインできない状態
+#############################
 import requests
 from bs4 import BeautifulSoup
 import getpass

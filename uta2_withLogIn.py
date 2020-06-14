@@ -1,3 +1,7 @@
+#############################
+# 一番基本的なログイン。セッションとかない
+# note:
+#############################
 import requests
 from bs4 import BeautifulSoup
 
