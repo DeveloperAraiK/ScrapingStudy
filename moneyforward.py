@@ -1,18 +1,27 @@
+#############################
+# seleniumを使って、マネーフォワードへ
+# note:
+#############################
 from selenium import webdriver
 import chromedriver_binary 
 import time
+import sys
+import getIdPass
+
+loginId,loginPass = getIdPass.GetMoneyForwardIdPass()
 
 browser = webdriver.Chrome()
-browser.get("https://www.google.com/")
+browser.get("https://moneyforward.com/")
 
-# 入力が完了する前に検索ボタンを押してしまうとエラーが生じるため時間を置かせる
-time.sleep(3) # sec
+time.sleep(3)
+button = browser.find_element_by_class_name("web-sign-in")
+button.click() # ログインボタン
+
+time.sleep(3)
+# ログイン方法が複数ありclassは全部同じ。classの先頭=メールアドレス
+button = browser.find_element_by_class_name("_2sZu7ciR")
+button.click() # メールアドレスでログイン
 
 # 検索欄に任意の文字を入力
-search = browser.find_element_by_name("q")
-search.send_keys("マネーフォワード")
-
-# 検索ボタンをクリック
-time.sleep(3) # sec
-button = browser.find_element_by_class_name("gNO89b")
-button.click()
+# search = browser.find_element_by_name("q")
+# search.send_keys("マネーフォワード")
