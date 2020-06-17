@@ -6,10 +6,9 @@ from selenium import webdriver
 import chromedriver_binary 
 import time
 import sys
-import getIdPass
+import lib.getIdPass as idpass
 
-loginId,loginPass = getIdPass.GetMoneyForwardIdPass()
-
+loginId,loginPass = idpass.GetMoneyForwardIdPass()
 browser = webdriver.Chrome()
 browser.get("https://moneyforward.com/")
 
